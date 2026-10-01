@@ -45,6 +45,10 @@ A small hosted relay: an append-only endpoint that proxies Workflowy's create-bu
 - Append-only: the relay can create bullets and nothing else. No read access, no edits, no deletes.
 - The assistant calls the endpoint instead of driving a browser, which removes the UI-fragility class of failures.
 
+## v0.2: direct API capture
+
+For developers who want to replace the browser path with a direct API write, see [V0.2-DIRECT-API.md](V0.2-DIRECT-API.md). It has the create-bullet contract, the reference write code, and the operational rules (token handling, check-before-write, read-back, add-only). A runnable client is in [examples/create-bullet.mjs](examples/create-bullet.mjs).
+
 ## Docs
 
 - [IMPLEMENTATION.md](IMPLEMENTATION.md): how capture works, the procedure, and the rules.
@@ -54,3 +58,4 @@ A small hosted relay: an append-only endpoint that proxies Workflowy's create-bu
 - [CONCURRENCY-TESTS.md](CONCURRENCY-TESTS.md): concurrency test suite.
 - [CONCURRENCY-RESULTS.md](CONCURRENCY-RESULTS.md): concurrency run results.
 - [LOCKING-DESIGN.md](LOCKING-DESIGN.md): proposed serialization and locking design.
+- [V0.2-DIRECT-API.md](V0.2-DIRECT-API.md): direct API capture guide for developers.
