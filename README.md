@@ -1,3 +1,5 @@
+![Workflowy Capture banner](banner.svg)
+
 # Workflowy Capture
 
 Capturing notes and tasks from the assistant chat into the user's Workflowy lists.
