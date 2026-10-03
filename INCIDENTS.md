@@ -97,3 +97,23 @@ Anonymized learnings from operating the browser capture path. No personal names,
 - Verification reload before sync completes gives a false negative.
 - Retrying on a false negative creates duplicates. Wait for sync first; if a retry is needed, check for the first copy after sync settles.
 - An idempotency marker per capture would make retries safe.
+
+
+## I12: Capture failed four times: coordinate drift, then a freeze on "which blank is mine?"
+
+**What happened:** A capture into the top priority list failed four times through the browser. The outline was taller than the viewport, so coordinate clicks drifted and landed on the generic new-node control, creating stray blank nodes at wrong levels. After each create, the agent tried to visually re-identify its own fresh blank node among the strays, could not tell them apart, and stopped without typing. The user added the item by hand. No existing content was changed. The direct API fallback (official create-node endpoint) was blocked by the platform: stored secrets can fill browser fields but cannot be handed to an HTTP client.
+
+**5 whys:**
+1. Why did the text not land? The agent refused to type into a node it could not verify as fresh.
+2. Why could it not verify? Stray blanks from earlier attempts sat in the same area, and scroll state made screenshots ambiguous.
+3. Why were strays created? Coordinate clicks were not re-grounded in a fresh screenshot right before each click.
+4. Why did the loop continue on stale positions? There was no hard gate, and the long outline made assumed coordinates drift.
+5. Root cause: create and type were not atomic, and verification was visual node identification instead of content-based.
+
+**Fix (see [CAPTURE-PROCEDURE.md](CAPTURE-PROCEDURE.md)):** capture on the zoomed destination page, create the node and type immediately in one uninterrupted sequence, verify by content afterward, stop and report on a wrong landing, and ignore stray blank nodes.
+
+**Learnings:**
+- The caret is in the new node at the moment of creation. That is the identification; do not re-derive it later.
+- Verify by exact content on the destination page, not by looking at blank rows.
+- Stray blank nodes must never become blockers. The no-touch rule means they stay, so the procedure has to work around them.
+- Residual risk: if focus is stolen between create and type, text could land in an existing node. Detect by content check, stop, report, never auto-fix.
