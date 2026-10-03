@@ -51,6 +51,8 @@ For developers who want to replace the browser path with a direct API write, see
 
 ## Docs
 
+- [CAPTURE-PROCEDURE.md](CAPTURE-PROCEDURE.md): the current standing capture procedure (v0.3).
+- [VERSIONS.md](VERSIONS.md): version history.
 - [IMPLEMENTATION.md](IMPLEMENTATION.md): how capture works, the procedure, and the rules.
 - [TEST-PLAN.md](TEST-PLAN.md): functional, robustness, concurrency, security and performance tests.
 - [TEST-RESULTS.md](TEST-RESULTS.md): executed results.
