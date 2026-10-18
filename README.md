@@ -24,6 +24,13 @@ Order inside a list does not matter. Captures are never moved after creation.
 - **Mistakes stay untouched.** If a capture goes wrong, do not revert, restore, or merge. Report it and log it.
 - **No private links in this repo.** Share links and credentials live only with the user, never in files or history.
 
+## Hashtagged voice-note capture and archival
+
+- Only a voice note that starts with a hashtag is routed to Workflowy. Untagged voice notes are not Workflowy captures, even when they sound like a task or request.
+- For a hashtagged voice note that is captured to Workflowy, upload the original audio recording to the user's private Google Drive media archive and include its Drive link with the capture. Keep the archive private; do not enable public sharing.
+- Preserve the audio unchanged. The transcript and audio link belong in the same capture, with the link as a sub-bullet under the transcript when using multi-line structure.
+- Do not archive or capture a voice note unless it is actually being routed to Workflowy.
+
 ## Assistant reply for hashtagged voice captures
 
 When the capture input is a voice recording that starts with a hashtag (for example `#0`, `#1`, or any other hashtag that routes to its matching list), reply with:
@@ -48,16 +55,3 @@ A small hosted relay: an append-only endpoint that proxies Workflowy's create-bu
 ## v0.2: direct API capture
 
 For developers who want to replace the browser path with a direct API write, see [V0.2-DIRECT-API.md](V0.2-DIRECT-API.md). It has the create-bullet contract, the reference write code, and the operational rules (token handling, check-before-write, read-back, add-only). A runnable client is in [examples/create-bullet.mjs](examples/create-bullet.mjs).
-
-## Docs
-
-- [CAPTURE-PROCEDURE.md](CAPTURE-PROCEDURE.md): the current standing capture procedure (v0.3).
-- [VERSIONS.md](VERSIONS.md): version history.
-- [IMPLEMENTATION.md](IMPLEMENTATION.md): how capture works, the procedure, and the rules.
-- [TEST-PLAN.md](TEST-PLAN.md): functional, robustness, concurrency, security and performance tests.
-- [TEST-RESULTS.md](TEST-RESULTS.md): executed results.
-- [INCIDENTS.md](INCIDENTS.md): anonymized incident learnings.
-- [CONCURRENCY-TESTS.md](CONCURRENCY-TESTS.md): concurrency test suite.
-- [CONCURRENCY-RESULTS.md](CONCURRENCY-RESULTS.md): concurrency run results.
-- [LOCKING-DESIGN.md](LOCKING-DESIGN.md): proposed serialization and locking design.
-- [V0.2-DIRECT-API.md](V0.2-DIRECT-API.md): direct API capture guide for developers.
