@@ -13,20 +13,26 @@ The user drops thoughts and tasks into the chat (typed or as voice notes). The a
 | `#0 <text>` | PP0 (priority list 0, current-day section) |
 | `#1 <text>` | PP1 |
 | `#2 <text>` | PP2 |
-| no hashtag, task-like | PInbox |
+| `# <text>` (hash + space, typed) | PInbox |
+| `#f <text>` | Follow-up folder |
+
+- Only typed notes that start exactly with `# ` (hash + space) go to PInbox. Typed notes without a hashtag are not captured anywhere.
+- Hashtagged voice notes route exactly like the typed forms above. An untagged voice note is not captured unless the user explicitly says where it goes (for example "add this to P zero").
 
 Order inside a list does not matter. Captures are never moved after creation.
 
 ## Hard rules
 
-- **Add-only.** Every capture is a fresh node. The assistant never deletes, edits, moves, or crosses off an existing node, and never types into an existing or blank row.
+- **Add-only.** Every capture is a fresh node. The assistant never deletes, edits, moves, or crosses off an existing node, and never types into an existing or blank row. Titles are never edited.
+- **Verify the caret before typing.** After any click, re-read the page and use the fresh element ref; confirm the caret is in a fresh bullet before typing or pressing Enter. Stale refs and assumed focus are how text ends up in a title or the search box.
+- **Stop on the first error.** No retry loops with the same method. A failed capture gets an immediate ⚠️ alert (see Confirmations and alerts).
 - **Sync before reload.** After typing, wait until the text has synced to the server before any reload or verification reload. Reloading right after typing can lose the text. This gate is mandatory.
 - **Mistakes stay untouched.** If a capture goes wrong, do not revert, restore, or merge. Report it and log it.
 - **No private links in this repo.** Share links and credentials live only with the user, never in files or history.
 
 ## Hashtagged voice-note capture and archival
 
-- Only a voice note that starts with a hashtag is routed to Workflowy. Untagged voice notes are not Workflowy captures, even when they sound like a task or request.
+- Only a voice note that starts with a hashtag is routed to Workflowy. Untagged voice notes are not Workflowy captures, even when they sound like a task or request - unless the user explicitly names the destination.
 - For a hashtagged voice note that is captured to Workflowy, upload the original audio recording to the user's private Google Drive media archive and include its Drive link inline in the captured transcript as Markdown: `[audio](https://drive.google.com/file/d/<id>/view)`. Do not use a separate sub-bullet for the link and do not include query parameters such as `authuser`. Keep the archive private; do not enable public sharing.
 - Preserve the audio unchanged. Keep the transcript and inline audio link together in the same capture.
 - Do not archive or capture a voice note unless it is actually being routed to Workflowy.
@@ -42,6 +48,14 @@ When the capture input is a voice recording that starts with a hashtag (for exam
 ```
 
 A recording starting with `#0` gets a reply whose first line is `✅ #0`, then one blank line, then the transcription. A plain-text capture message keeps the checkmark-only rule: no reply.
+
+## Confirmations and alerts
+
+- **Typed capture (with or without hashtag):** a ✅ emoji reaction only, no text reply, and only after the capture is verified in Workflowy.
+- **Hashtagged voice note:** the `✅ <hashtag>` + blank line + transcription reply described above.
+- **Failed capture:** a ⚠️ reaction AND a separate text message immediately, even when a retry is planned. Never hold the verdict while waiting on a retry.
+- **In progress:** a 👀 reaction on anything the assistant has started, until it is finished.
+- **Never 👍.** A thumbs-up is not a valid capture acknowledgement.
 
 ## Long-term direction
 
