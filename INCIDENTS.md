@@ -117,3 +117,29 @@ Anonymized learnings from operating the browser capture path. No personal names,
 - Verify by exact content on the destination page, not by looking at blank rows.
 - Stray blank nodes must never become blockers. The no-touch rule means they stay, so the procedure has to work around them.
 - Residual risk: if focus is stolen between create and type, text could land in an existing node. Detect by content check, stop, report, never auto-fix.
+
+## I13: Capture text landed in the list title; Enter created blank bullets
+
+**What happened:** During a capture to the inbox list, the agent clicked using a stale element ref and typed without verifying focus. The capture text was appended into the list's title (corrupting it) and Enter presses created stray blank bullets. The capture itself never landed. Everything was left untouched per the add-only rule. The failure was also not alerted immediately: the agent held the verdict while planning a retry and only flagged it about an hour later.
+
+**5 whys:**
+1. Why did the text land in the title? Typing started without a verified caret in a fresh bullet.
+2. Why was the caret not in a fresh bullet? The click used a stale element ref, and focus was never re-read after the click.
+3. Why was there no stop-gate? The procedure assumed create-and-type in one sequence keeps the caret in the new node; it did not require verifying focus first.
+4. Why the late alert? The agent waited on a planned retry instead of alerting on the first failure.
+5. Root cause: caret location was assumed instead of verified, and the alerting rule lacked an immediate verdict on failure.
+
+**Learnings:**
+- After every click, re-read the page and use fresh element refs; refs captured earlier are stale.
+- Verify the caret is in a fresh bullet before any typing or Enter. Stop on the first error.
+- Never edit titles. A corrupted title is reported, not repaired (add-only).
+- Alert immediately: on any failed capture, a ⚠️ reaction plus a separate text message at once, even when a retry is planned.
+
+## I14: Typing landed in search; the caret gate turned corruption into a clean stop
+
+**What happened:** Later the same day, repeated captures failed because keystrokes went to the outline's search box instead of a bullet. The agent could not get a verified typing cursor into a bullet from the cloud browser, so it stopped: nothing typed, no content changed. Five captures were queued and reported to the user as not landed, with the full list.
+
+**Learnings:**
+- The verify-caret-before-typing gate works: a corruption-class failure became a clean stop with zero unwanted mutations.
+- When a capture cannot land, report the exact queue of unlanded items so the user can add them by hand.
+- Do not retry a failing input path unchanged; change the method or stop.
