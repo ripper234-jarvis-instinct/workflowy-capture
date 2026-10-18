@@ -27,8 +27,8 @@ Order inside a list does not matter. Captures are never moved after creation.
 ## Hashtagged voice-note capture and archival
 
 - Only a voice note that starts with a hashtag is routed to Workflowy. Untagged voice notes are not Workflowy captures, even when they sound like a task or request.
-- For a hashtagged voice note that is captured to Workflowy, upload the original audio recording to the user's private Google Drive media archive and include its Drive link with the capture. Keep the archive private; do not enable public sharing.
-- Preserve the audio unchanged. The transcript and audio link belong in the same capture, with the link as a sub-bullet under the transcript when using multi-line structure.
+- For a hashtagged voice note that is captured to Workflowy, upload the original audio recording to the user's private Google Drive media archive and include its Drive link inline in the captured transcript as Markdown: `[audio](https://drive.google.com/file/d/<id>/view)`. Do not use a separate sub-bullet for the link and do not include query parameters such as `authuser`. Keep the archive private; do not enable public sharing.
+- Preserve the audio unchanged. Keep the transcript and inline audio link together in the same capture.
 - Do not archive or capture a voice note unless it is actually being routed to Workflowy.
 
 ## Assistant reply for hashtagged voice captures
