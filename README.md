@@ -69,3 +69,21 @@ A small hosted relay: an append-only endpoint that proxies Workflowy's create-bu
 ## v0.2: direct API capture
 
 For developers who want to replace the browser path with a direct API write, see [V0.2-DIRECT-API.md](V0.2-DIRECT-API.md). It has the create-bullet contract, the reference write code, and the operational rules (token handling, check-before-write, read-back, add-only). A runnable client is in [examples/create-bullet.mjs](examples/create-bullet.mjs).
+
+
+## Capture failure analysis and next steps
+
+Recent capture failures cluster into a few families:
+
+- **Wrong focus / wrong destination:** stale or misleading controls can put text in a list title or in Workflowy's Search field instead of a bullet. The Oct 19 Search-landing failure came from typing through a form ref that resolved to Search; visually seeing a blank outline row is not proof that the editor has focus.
+- **Ambiguous empty rows:** earlier retries left stray blank bullets, making it hard to tell which empty row was newly created. Empty rows can remain; Ron says they are acceptable and not a blocker or stop condition. Do not touch or clean them up.
+- **Sync and verification races:** text can sync late; reloading too early may show a false negative or lose unsynced text, and an immediate retry can create duplicates. Wait for sync before checking or retrying; verify exact content.
+- **Multi-line / nested-content loss:** multiline input or nested audio links can split or disappear. Prefer a single-line capture where possible and verify the full intended text.
+
+Options from the Oct 19 capture analysis:
+
+- **Option A (near-term):** use a coordinate click on the first real bullet, confirm the caret on a fresh screenshot, capture one line, and verify exact content after about 60 seconds. Use one canary at a time.
+- **Option B (failure response):** if the capture fails, send the failure alert promptly with the unlanded item; do not let a planned retry delay the verdict. Any retry should change the method or compress the capture to one line.
+- **Option D (long-term):** consider a Fredo-hosted append-only capture form/relay as the durable fix; this needs explicit go-ahead before implementation.
+
+These notes summarize observed failure modes and proposed options; existing routing, add-only, and verification details remain in the sections above.
