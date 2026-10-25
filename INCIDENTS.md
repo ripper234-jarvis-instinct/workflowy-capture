@@ -1,3 +1,5 @@
+> HISTORICAL RECORD / SUPERSEDED GUIDANCE. The current contract is [CAPTURE-PROCEDURE.md](CAPTURE-PROCEDURE.md), v0.5 (2026-10-25). The text below is retained as historical evidence or design, not current execution advice or authorization. Old permissions, test passes, retry/blank-completion suggestions, API proposals and claims of guaranteed safety do not establish present authority, implementation or reliability. No tests were run for v0.5.
+
 # Incidents
 
 Anonymized learnings from operating the browser capture path. No personal names, no user data, no specifics beyond what is needed for the learning.
