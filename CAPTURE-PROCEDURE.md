@@ -4,7 +4,7 @@ Current operating contract, reviewed 2026-10-25. This replaces earlier procedura
 
 Goal: save requested content accurately, with minimal user interaction. Use the browser and the user's existing private share links. External APIs are unavailable for this workflow. No email fallback.
 
-This is a safety protocol, not a claim that a reliable browser insertion method is currently available. If no supported top-add control can satisfy the gates below, capture is blocked. Do not fall back to Enter in a heading, an existing task or an unidentified blank.
+This is a safety protocol, not a claim that a reliable browser insertion method is currently available. New captures go at the bottom of the destination list by default. If no supported bottom-add control can satisfy the gates below, capture is blocked. Do not fall back to Enter in a heading, an existing task or an unidentified blank.
 
 ## 1. Preserve the request and resolve its destination
 
@@ -44,16 +44,16 @@ Open the direct bucket link where available. Confirm its title and parent path; 
 
 Inspect the insertion area and any matching content. A similar old task is not evidence this request was saved. Distinguish the original request from another request with identical text; text matching alone is not idempotency.
 
-New captures belong at the top unless the user explicitly requests otherwise. No silent substitution of bottom placement.
+New captures belong at the bottom unless the user explicitly requests otherwise. This is Ron’s standing preference from 2026-11-20. Do not silently substitute another position.
 
 ## 4. Create a new bullet without editing existing content
 
-Use a supported new-item control whose parent and top placement are clear. Do not use an existing task, link or bucket heading as an improvised insertion point. In particular, never press Enter inside existing text to manufacture a new bullet.
+Use a supported new-item control whose parent and bottom placement are clear. Do not use an existing task, link or bucket heading as an improvised insertion point. In particular, never press Enter inside existing text to manufacture a new bullet.
 
 After creation, obtain a fresh page view and locate the editor again. Before typing, establish all three:
 
 - It is the bullet just created by this attempt.
-- It is empty and under the intended parent, at the intended position.
+- It is empty and under the intended parent, at the bottom of the list.
 - The active editor belongs to that bullet, not Search, a heading or another item.
 
 Inspect the actual page visually as well as its structure. An empty-looking row, remembered coordinates or an earlier input target is insufficient. Do not type a probe/test character to discover focus. If identity, parentage or focus cannot be established, stop.
@@ -76,7 +76,7 @@ Inspect the result and allow a save/sync opportunity. Observe a saved/synced ind
 
 After a save opportunity, reopen the destination, and the parent for nested captures, to verify:
 
-- Correct bucket and top placement (or explicitly approved exception).
+- Correct bucket and bottom placement (or explicitly approved exception).
 - Complete exact text, including mixed-language characters and punctuation.
 - Correct parent/child relationships and all requested children.
 - Requested clickable links and actual destinations.
@@ -110,5 +110,4 @@ Analyze each failure promptly: observed symptom, attempted actions, likely contr
 
 ## Evidence and validation boundary
 
-The review aligns this contract with wrong-focus, title-splitting, blank-node, sync-loss, duplicate, malformed-link, wrong-bucket and long-input incidents. It does not establish a working top-add control, a durable queue/mutex, idempotency, a safe long-input method or universal persistence. No live Workflowy tests were performed for v0.5. See [REVIEW.md](REVIEW.md) and [TEST-PLAN.md](TEST-PLAN.md).
-
+The review aligns this contract with wrong-focus, title-splitting, blank-node, sync-loss, duplicate, malformed-link, wrong-bucket and long-input incidents. It does not establish a working bottom-add control, a durable queue/mutex, idempotency, a safe long-input method or universal persistence. No live Workflowy tests were performed for v0.5. See [REVIEW.md](REVIEW.md) and [TEST-PLAN.md](TEST-PLAN.md).
