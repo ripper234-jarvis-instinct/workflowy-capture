@@ -6,7 +6,7 @@ Save requested chat notes and tasks as new Workflowy bullets through the browser
 
 ## Current contract
 
-**Read [CAPTURE-PROCEDURE.md](CAPTURE-PROCEDURE.md), v0.5, reviewed 2026-10-25.** It is the single current operating protocol, including routing, hierarchy, voice archival, add-only constraints, verification, retry limits and outcome reporting. Later explicit user instructions take precedence. Do not assemble a procedure from older incident fixes.
+**Read [CAPTURE-PROCEDURE.md](CAPTURE-PROCEDURE.md), v0.6, updated 2026-11-22.** It is the single current operating protocol, including routing, the weekday-parent/task-child format for #0/#1 instead of a weekday prefix, voice archival, add-only constraints, verification, retry limits and outcome reporting. Later explicit user instructions take precedence. Do not assemble a procedure from older incident fixes.
 
 The revised protocol is safer documentation, not proof that capture works. There is no demonstrated current top-add procedure in this review. If a supported new-item control cannot establish a fresh editor under the correct parent, stop and report. Do not manufacture a row with Enter in a heading or existing text. No Workflowy writes were made for this review.
 
